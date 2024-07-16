@@ -26,6 +26,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -39,8 +40,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -94,7 +95,7 @@
   boot.extraModprobeConfig = ''
     options snd-sof-intel-hda-common hda_model=alc287-yoga9-bass-spk-pin
   ''; 
- 
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
