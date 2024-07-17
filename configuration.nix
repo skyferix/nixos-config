@@ -8,7 +8,13 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./home-manager.nix
     ];
+  
+  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.dates = "daily";
+  nix.gc.options = "--delete-older-than 30d --keep-generations 10"; 
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -24,11 +30,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Vilnius";
   time.hardwareClockInLocalTime = true;
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable the X11 windowing system.
@@ -37,7 +40,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
+  
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
@@ -72,14 +75,19 @@
     description = "Skyferix";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
+      jetbrains.phpstorm
+      php83
+      php83Packages.composer
+      symfony-cli
     ];
   };
-
+  
+  programs.hyprland.enable = true;
+  
   # Install firefox.
   programs.firefox.enable = true;
-
   # Allow unfree packages
+
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
@@ -89,12 +97,11 @@
     wget 
     git 
     alsa-firmware
-    jetbrains.phpstorm
   ];
  
   boot.extraModprobeConfig = ''
     options snd-sof-intel-hda-common hda_model=alc287-yoga9-bass-spk-pin
-  ''; 
+  '';
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
