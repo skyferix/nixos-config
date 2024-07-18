@@ -13,6 +13,9 @@ in
       enable = true;
       userName  = "Skyferix";
       userEmail = "skyferix-sky@gmail.com";
+      aliases = {
+        pushfwl = "push --force-with-lease";
+      };
     };
     programs.bash = {
       enable = true;

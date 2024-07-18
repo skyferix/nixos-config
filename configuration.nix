@@ -79,6 +79,7 @@
       php83
       php83Packages.composer
       symfony-cli
+      yarn
     ];
   };
   
