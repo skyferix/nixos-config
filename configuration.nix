@@ -14,7 +14,7 @@
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
-  nix.gc.options = "--delete-older-than 30d --keep-generations 10"; 
+  nix.gc.options = "--delete-older-than 30d"; 
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -76,14 +76,18 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       jetbrains.phpstorm
-      php83
-      php83Packages.composer
+      (pkgs.php83.buildEnv {
+        extensions = ({ enabled, all }: enabled ++ (with all; [
+          xdebug
+        ]));
+        extraConfig = ''
+        '';
+      })
+      php83Packages.composer      
       symfony-cli
       yarn
     ];
   };
-  
-  programs.hyprland.enable = true;
   
   # Install firefox.
   programs.firefox.enable = true;
@@ -91,10 +95,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  programs.vim.defaultEditor = true;
   environment.systemPackages = with pkgs; [
-    vim 
     wget 
     git 
     alsa-firmware

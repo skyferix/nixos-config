@@ -16,6 +16,11 @@ in
       aliases = {
         pushfwl = "push --force-with-lease";
       };
+      extraConfig = {
+        core = {
+          editor = "vim";
+        };
+      };
     };
     programs.bash = {
       enable = true;
