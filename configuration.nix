@@ -73,7 +73,7 @@
   users.users.skyferix = {
     isNormalUser = true;
     description = "Skyferix";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       jetbrains.phpstorm
       (pkgs.php83.buildEnv {
@@ -86,9 +86,11 @@
       php83Packages.composer      
       symfony-cli
       yarn
+      graphviz
     ];
   };
-  
+  virtualisation.docker.enable = true;
+ 
   # Install firefox.
   programs.firefox.enable = true;
   # Allow unfree packages
