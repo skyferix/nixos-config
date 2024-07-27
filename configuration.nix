@@ -81,8 +81,9 @@
     alsa-firmware
     flameshot
   ];
- 
+
   boot.extraModprobeConfig = ''
+    options snd-intel-dspcfg dsp_driver=3
     options snd-sof-intel-hda-common hda_model=alc287-yoga9-bass-spk-pin
   '';
 
