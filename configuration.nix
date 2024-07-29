@@ -69,11 +69,13 @@
   };
   virtualisation.docker.enable = true;
  
-  programs.firefox.enable = true;
-
   nixpkgs.config.allowUnfree = true;
 
-  programs.vim.defaultEditor = true;
+  programs = {
+    vim.defaultEditor = true;
+    git.prompt.enable = true;
+    firefox.enable = true;
+  };
   environment.systemPackages = with pkgs; [
     wget 
     git 
