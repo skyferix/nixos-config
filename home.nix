@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.stateVersion = "24.05";
@@ -29,7 +29,7 @@
       export PS1='\n\[\033[$PROMPT_COLOR\]\u@\h:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
     '';
   };
-  dconf.settings = {
+  dconf.settings = with lib.hm.gvariant; {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       enable-hot-corners = false;
@@ -37,6 +37,16 @@
     "org/gnome/mutter" = {
       edge-tiling = true;
       workspaces-only-on-primary=true;
+    };
+    "org/gnome/desktop/input-sources" = {
+      mru-sources = [
+        (mkTuple [ "xkb" "us" ])
+      ];
+      sources = [ 
+        (mkTuple [ "xkb" "us" ])
+        (mkTuple [ "xkb" "lt" ])
+        (mkTuple [ "xkb" "pl" ])
+      ];       
     };
   };
 }
