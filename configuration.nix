@@ -88,5 +88,17 @@
     options snd-sof-intel-hda-common hda_model=alc287-yoga9-bass-spk-pin
   '';
 
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
+ 
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia.modesetting.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
   system.stateVersion = "24.05";
 }
